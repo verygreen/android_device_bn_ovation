@@ -206,6 +206,7 @@ PRODUCT_PACKAGES += \
 	sh \
 	libwvm \
 	audio.primary.ovation \
+	audio.a2dp.default \
 	audio_policy.default 
 
 PRODUCT_PROPERTY_OVERRIDES := \
