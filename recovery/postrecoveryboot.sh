@@ -14,13 +14,13 @@ if [ -f /boot/MLO -a -f /boot/u-boot.bin -a ! -e /dev/block/mmcblk1p2 ] ; then
 
    if [ $SDCARDSIZE -ge 15000000 ] ; then
       # more than 16G, let's be generous
-      echo -e "n\np\n2\n\n+800M\nn\np\n3\n\n+2048M\nn\ne\n\n\nn\n\n\nt\n5\nc\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
+      echo -e "u\nn\np\n2\n\n1818623\nn\np\n3\n\n6012868\nn\ne\n\n\nn\n\n\nt\n5\nc\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
 
       mkfs.vfat -n "CM10SDCARD" /dev/block/mmcblk1p5
       mke2fs -T ext4 /dev/block/mmcblk1p3
    elif [ $SDCARDSIZE -ge 1800000 ] ; then
       # 2G or bigger, cannot be as generous
-      echo -e "n\np\n2\n\n+800M\nn\np\n3\n\n+900M\nn\ne\n\n\nn\n\n\nt\n5\nc\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
+      echo -e "u\nn\np\n2\n\n1818623\nn\np\n3\n\n3661764\nn\ne\n\n\nn\n\n\nt\n5\nc\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
 
       mkfs.vfat -n "CM10SDCARD" /dev/block/mmcblk1p5
       mke2fs -T ext4 /dev/block/mmcblk1p3
