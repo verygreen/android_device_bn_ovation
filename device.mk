@@ -116,6 +116,7 @@ PRODUCT_PACKAGES += \
 	CMStats \
 	uim-sysfs \
 	sdcard \
+	qrngd \
 	lights.ovation
 
 # Place permission files
