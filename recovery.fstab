@@ -1,9 +1,10 @@
 # This is sdcard-based setup
 # mount point	fstype    device    	[device2]
-/rom            vfat      /dev/block/mmcblk0p5
 /boot		vfat      /dev/block/mmcblk1p1
 /bootdata       vfat      /dev/block/mmcblk0p6
-/factory	ext4	  /dev/block/mmcblk0p7
+# Don't make it as easily accessible so it's not reformatted
+#/factory	ext4	  /dev/block/mmcblk0p7
+#/rom            vfat      /dev/block/mmcblk0p5
 /system		ext4	  /dev/block/mmcblk1p2
 /cache      	ext4      /dev/block/mmcblk0p9
 /emmc  	 	vfat      /dev/block/mmcblk0p10
