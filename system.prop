@@ -4,8 +4,8 @@
 wifi.interface=wlan0
 
 #define defaults for audio D/A mic and power mode
-omap.audio.mic.main=AMic0    
-omap.audio.mic.sub=AMic1     
+omap.audio.mic.main=DMic1L
+omap.audio.mic.sub=DMic1L
 omap.audio.power=PingPong           
 af.resampler.quality=3              
 ro.nf.profile=2                           

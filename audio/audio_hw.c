@@ -305,7 +305,7 @@ struct route_setting
 /* These are values that never change */
 struct route_setting defaults[] = {
     /* general */
-
+#if 0
     {
         .ctl_name = MIXER_DL2_LEFT_EQUALIZER,
         .strval = MIXER_FLAT_RESPONSE,
@@ -314,6 +314,7 @@ struct route_setting defaults[] = {
         .ctl_name = MIXER_DL2_RIGHT_EQUALIZER,
         .strval = MIXER_FLAT_RESPONSE,
     },
+#endif
     {
         .ctl_name = MIXER_DL1_EQUALIZER,
         .strval = MIXER_FLAT_RESPONSE,
