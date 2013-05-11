@@ -16,8 +16,8 @@ on init
     mount /tmp /tmp tmpfs
 
 on boot
-    # reduce backlight usage in recovery
-    write /sys/class/backlight/lcd-backlight/brightness 100
+    # Do not reduce backlight usage in recovery
+    write /sys/class/backlight/lcd-backlight/brightness 180
 
     ifup lo
     hostname localhost
