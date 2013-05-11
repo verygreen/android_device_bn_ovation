@@ -101,7 +101,7 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/ovation/releasetools/ov
 # not tested at all
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/ovation/releasetools/ovation_img_from_target_files
 
-TARGET_KERNEL_CONFIG := cyanogenmod_ovation_green_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_ovation_green_sdcard_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/ovation
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
@@ -111,13 +111,13 @@ SGX_MODULES:
 	mv $(KERNEL_OUT)/../../target/kbuild/pvrsrvkm_sgx544_112.ko $(KERNEL_MODULES_OUT)
 
 WIFI_MODULES:
-	make -C kernel/bn/ovation/external/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+	make -C hardware/ti/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
 	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
 
 BT_MODULES:
 	make -C kernel/bn/ovation/external/wpan/bluetooth-compat KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
