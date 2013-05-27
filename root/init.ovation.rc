@@ -8,11 +8,11 @@ on init
     mkdir /storage/sdcard1 0000 system system
 
     # for backwards compatibility
-    symlink /storage/emulated/legacy /emmc
-    symlink /storage/emulated/legacy /mnt/emmc
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /storage/sdcard1 /sdcard
-    symlink /storage/sdcard1 /mnt/sdcard
+    symlink /storage/sdcard1 /emmc
+    symlink /storage/sdcard1 /mnt/emmc
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
 
     symlink /system/vendor /vendor
@@ -75,9 +75,10 @@ on fs
     chown bluetooth bluetooth /dev/ttyO3
 
 on post-fs-data
+    # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
+    # we will map this as /mnt/emmc with the sdcard fuse tool
     mkdir /int-data/media 0775 media_rw media_rw
     chown media_rw media_rw /int-data/media
 
@@ -91,6 +92,7 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
     start sdcard
+    start emmc
 
 #for Bluetooth HID
     chmod 0666 /dev/uhid
@@ -288,7 +290,11 @@ service bootcnt /system/bin/clear_bootcnt.sh
     disabled
     oneshot
 
-service sdcard /system/bin/sdcard /int-data/media /mnt/shell/emulated 1023 1023
+service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+    class main
+    disabled
+
+service emmc /system/bin/sdcard /int-data/media /storage/sdcard1 1023 1023
     class main
     disabled
 

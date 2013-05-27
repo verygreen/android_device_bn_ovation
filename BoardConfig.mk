@@ -197,7 +197,7 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 
 # For bigger CWM font
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
-RECOVERY_NAME := EMMC CWM-based recovery
+RECOVERY_NAME := SDCARD CWM-based recovery
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true

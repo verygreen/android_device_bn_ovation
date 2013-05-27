@@ -7,26 +7,18 @@ PATH=$PATH:/sbin
 # and if so, create partitions and such
 mount /dev/block/mmcblk1p1 /boot -t vfat
 if [ -f /boot/MLO -a -f /boot/u-boot.bin -a ! -e /dev/block/mmcblk1p2 ] ; then
-   # This assumes sdcard is at least 4G
-   # No error checking right now because I am in a hurry
-   SDCARDSIZE=$(grep 'mmcblk1$' /proc/partitions | awk '{print $3}')
-   umount /boot
 
-   if [ $SDCARDSIZE -ge 15000000 ] ; then
-      # more than 16G, let's be generous
-      echo -e "n\np\n2\n\n+800M\nn\np\n3\n\n+2048M\nn\ne\n\n\nn\n\n\nt\n5\nc\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
+      umount /boot
 
-      mkfs.vfat -n "CM10SDCARD" /dev/block/mmcblk1p5
+      # New layout: boot, 800M /system, and the rest goes to /data
+      echo -e "n\np\n2\n\n+800M\nn\np\n3\n\n\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
+
       mke2fs -T ext4 /dev/block/mmcblk1p3
-   elif [ $SDCARDSIZE -ge 1800000 ] ; then
-      # 2G or bigger, cannot be as generous
-      echo -e "n\np\n2\n\n+800M\nn\np\n3\n\n+900M\nn\ne\n\n\nn\n\n\nt\n5\nc\nw\n" | fdisk /dev/block/mmcblk1 >/dev/null
 
-      mkfs.vfat -n "CM10SDCARD" /dev/block/mmcblk1p5
-      mke2fs -T ext4 /dev/block/mmcblk1p3
-   else
-      echo "Don't really support less than 2G cards"
-   fi
+      mount /dev/block/mmcblk1p3 /data
+      mkdir /data/media
+      chmod 775 /data/media
+      umount /data
 else
    umount /boot
 fi
@@ -44,3 +36,9 @@ dd if=/dev/zero of=/bootdata/BCB bs=1 count=1088
 
 umount /bootdata
 rmdir /bootdata
+
+# Create fake emmc symlink
+mkdir /int-data
+mount /dev/block/platform/omap/omap_hsmmc.1/by-name/userdata /int-data
+rmdir /emmc
+ln -sf /int-data/media /emmc
