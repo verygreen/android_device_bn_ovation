@@ -47,4 +47,8 @@
              android:emulated="true"
              android:mtpReserve="100"
              android:allowMassStorage="false" />
+    <!-- external USB slots -->
+    <storage android:mountPoint="/storage/usb0"
+             android:storageDescription="@string/storage_usb"
+             android:removable="true" />
 </StorageList>
