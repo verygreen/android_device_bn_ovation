@@ -46,7 +46,7 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/ovation/releasetools/ov
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/ovation/releasetools/ovation_img_from_target_files
 
 TARGET_KERNEL_CONFIG := cyanogenmod_ovation_green_sdcard_defconfig
-TARGET_KERNEL_SOURCE := kernel/bn/ovation
+TARGET_KERNEL_SOURCE := kernel/bn/hd-common
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
 SGX_MODULES:
@@ -57,7 +57,7 @@ SGX_MODULES:
 	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/pvrsrvkm_sgx544_112.ko
 
 WIFI_MODULES:
-	make -C hardware/ti/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+	make -C hardware/ti/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNELOUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
 	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
@@ -66,12 +66,12 @@ WIFI_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
 
 BT_MODULES:
-	make -C kernel/bn/ovation/external/wpan/bluetooth-compat KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
-	mv kernel/bn/ovation/external/wpan/bluetooth-compat/drivers/bluetooth/hci_uart.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wpan/bluetooth-compat/drivers/bluetooth/btwilink.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wpan/bluetooth-compat/net/bluetooth/bluetooth.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wpan/bluetooth-compat/net/bluetooth/hidp/hidp.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/ovation/external/wpan/bluetooth-compat/net/bluetooth/rfcomm/rfcomm.ko $(KERNEL_MODULES_OUT)
+	make -C device/bn/bn-common/bluetooth-compat KERNELDIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+	mv device/bn/bn-common/bluetooth-compat/drivers/bluetooth/hci_uart.ko $(KERNEL_MODULES_OUT)
+	mv device/bn/bn-common/bluetooth-compat/drivers/bluetooth/btwilink.ko $(KERNEL_MODULES_OUT)
+	mv device/bn/bn-common/bluetooth-compat/net/bluetooth/bluetooth.ko $(KERNEL_MODULES_OUT)
+	mv device/bn/bn-common/bluetooth-compat/net/bluetooth/hidp/hidp.ko $(KERNEL_MODULES_OUT)
+	mv device/bn/bn-common/bluetooth-compat/net/bluetooth/rfcomm/rfcomm.ko $(KERNEL_MODULES_OUT)
 
 TARGET_KERNEL_MODULES := SGX_MODULES WIFI_MODULES BT_MODULES
 
